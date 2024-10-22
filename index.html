@@ -35,6 +35,13 @@
    });
 
    document.body.appendChild(script);
+          if (!canvas.getContextSafariWebGL2Fixed) { 
+         canvas.getContextSafariWebGL2Fixed = canvas.getContext; 
+         canvas.getContext = function(ver, attrs) { 
+           var gl = canvas.getContextSafariWebGL2Fixed(ver, attrs); 
+           return ((ver == 'webgl') == (gl instanceof WebGLRenderingContext)) ? gl : null; 
+         } 
+       } 
  </script>
       <canvas id="unity-canvas" width=1240 height=680></canvas>
       <div id="unity-loading-bar">
